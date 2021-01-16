@@ -11,7 +11,7 @@ function userRequest({ request, method = "GET", body = "", authorization = authT
 
     return new Promise((resolve, reject) => {
         if (authToken.length != 32 && request != "validtoken")
-            return reject("Unable to send a user requset; no auth token set. Please login first.");
+            return reject("Unable to send a user request; no auth token set. Please login first.");
 
         var options = {
             hostname: HOSTNAME,
