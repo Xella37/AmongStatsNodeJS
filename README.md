@@ -2,6 +2,9 @@
 A NodeJS wrapper for the [Among Stats](https://amongstats.net/) API
 The documentation of the API endpoints [API Documentation](https://amongstats.net/api-documentation/)
 
+Installing:
+```npm install amongstats```
+
 Require module using
 ```javascript
 const amongstats = require("./amongstats");

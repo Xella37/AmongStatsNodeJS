@@ -1,0 +1,33 @@
+{
+  "name": "amongstats",
+  "version": "1.0.0",
+  "description": "A NodeJS wrapper for the AmongStats API.",
+  "main": "amongstats.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xelostar/AmongStatsNodeJS.git"
+  },
+  "keywords": [
+    "among",
+    "us",
+    "among",
+    "us",
+    "stat",
+    "stats",
+    "statistics",
+    "game",
+    "log",
+    "graph",
+    "leaderboard",
+    "api"
+  ],
+  "author": "Xelostar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Xelostar/AmongStatsNodeJS/issues"
+  },
+  "homepage": "https://github.com/Xelostar/AmongStatsNodeJS#readme"
+}
