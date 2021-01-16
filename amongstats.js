@@ -24,8 +24,17 @@ function userRequest({ request, method = "GET", body = "", authorization = authT
             },
         };
         var req = https.request(options, (res) => {
-            res.on("data", (d) => {
-                let ret = JSON.parse(d);
+            let data
+
+            res.on("data", (chunk) => {
+                if (typeof data === "undefined")
+                    data = chunk;
+                else
+                    data += chunk;
+            });
+
+            res.on("end", () => {
+                let ret = JSON.parse(data);
                 if (res.statusCode != 200 && request != "validtoken")
                     return reject(ret.error);
                 resolve(ret);
@@ -46,7 +55,7 @@ async function validToken(token) {
         request: "validtoken",
         authorization: token,
     });
-    return valid;
+    return valid.validToken;
 }
 
 async function addStats(stats) {
@@ -60,9 +69,33 @@ async function addStats(stats) {
     return addStatsResult;
 }
 
+async function getStats() {
+    let addStatsResult = await userRequest({
+        request: "stats",
+        method: "GET",
+    });
+    return addStatsResult.stats;
+}
+
+async function getStatsHistory() {
+    let addStatsResult = await userRequest({
+        request: "statshistory",
+        method: "GET",
+    });
+    return addStatsResult.statshistory;
+}
+
+async function getUser() {
+    let addStatsResult = await userRequest({
+        request: "user",
+        method: "GET",
+    });
+    return addStatsResult.user;
+}
+
 async function login(token) {
-    let ret = await validToken(token);
-    if (ret.validToken)
+    let valid = await validToken(token);
+    if (valid)
         authToken = token;
     else
         throw "Cannot login. Invalid token given.";
@@ -71,5 +104,8 @@ async function login(token) {
 module.exports = {
     validToken: validToken,
     addStats: addStats,
+    getStats: getStats,
+    getStatsHistory: getStatsHistory,
+    getUser: getUser,
     login: login,
 };
