@@ -69,12 +69,22 @@ async function addStats(stats) {
     return addStatsResult;
 }
 
+function processStats(statsRaw) {
+    let stats = [];
+    for (let i = 0; i < 18; i++)
+        stats[i] = statsRaw["stat" + (i+1)];
+    return {
+        uploaded_on: statsRaw.uploaded_on,
+        stats: stats,
+    }
+}
+
 async function getStats() {
     let addStatsResult = await userRequest({
         request: "stats",
         method: "GET",
     });
-    return addStatsResult.stats;
+    return processStats(addStatsResult.stats);
 }
 
 async function getStatsHistory() {
@@ -82,7 +92,7 @@ async function getStatsHistory() {
         request: "statshistory",
         method: "GET",
     });
-    return addStatsResult.statshistory;
+    return addStatsResult.statshistory.map(processStats);
 }
 
 async function getUser() {
