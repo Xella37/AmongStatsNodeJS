@@ -25,6 +25,7 @@ async function start() {
     let stats = await amongstats.getStats();
     console.log(stats);
 
+    // Get all the statistics uploaded by the user
     let allStats = await amongstats.getStatsHistory();
     console.log(allStats);
 }
