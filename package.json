@@ -1,6 +1,6 @@
 {
   "name": "amongstats",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A NodeJS wrapper for the AmongStats API.",
   "main": "amongstats.js",
   "scripts": {
