@@ -35,10 +35,14 @@ function userRequest({ request, method = "GET", body = "", authorization = authT
             });
 
             res.on("end", () => {
-                let ret = JSON.parse(data);
-                if (res.statusCode != 200 && request != "validtoken")
-                    return reject(ret.error);
-                resolve(ret);
+                try {
+                    let ret = JSON.parse(data);
+                    if (res.statusCode != 200 && request != "validtoken")
+                        return reject(ret.error);
+                    resolve(ret);
+                } catch(e) {
+                    reject("Unable to connect to server. Server might be down.");
+                }
             });
         });
 
