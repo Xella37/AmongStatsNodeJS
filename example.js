@@ -1,7 +1,11 @@
 
 const amongstats = require("./amongstats");
 
-const authToken = "---------TOKEN-GOES-HERE---------";
+const applicationCode = "27b3ef8b64bcb7fd479ea652849c8461";
+const authToken = "d45d697631023102ae1cbcdb689fa4d6"; //"---------TOKEN-GOES-HERE---------";
+
+// Set the application code
+amongstats.setApplicationCode(applicationCode);
 
 async function start() {
     // Allow to check the validity of a token
@@ -17,7 +21,7 @@ async function start() {
 
     // Add stats to the user's account
     let res = await amongstats.addStats([
-        153, 54, 1807, 94, 218, 161, 140, 75, 8, 96, 392, 488, 469, 10, 26, 4, 245, 39,
+        158, 58, 1807, 94, 218, 161, 140, 75, 8, 96, 392, 488, 469, 10, 26, 4, 245, 39,
     ]);
     console.log(res);
 

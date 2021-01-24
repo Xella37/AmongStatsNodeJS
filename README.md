@@ -23,6 +23,11 @@ amongstats.login(token);
 Will attempt to "login" by checking the validity of the given token, and if it is valid, it will remember the token for other requests.
 
 ```javascript
+amongstats.setApplicationCode(applicationCode);
+```
+Sets the application code for uploading statistics. This is optional. It will track which application uploaded the statistics, and statistics will be visible on the [Developer Tools](https://test.amongstats.net/developer/applications/).
+
+```javascript
 amongstats.getUser();
 ```
 Returns basic Discord information on the user.
@@ -44,6 +49,10 @@ Returns a promise of information on the success of adding statistics to the user
 
 ```javascript
 const amongstats = require("./amongstats");
+
+const applicationCode = "----------CODE-GOES-HERE---------";
+// Set the application code (optional)
+amongstats.setApplicationCode(applicationCode);
 
 const authToken = "---------TOKEN-GOES-HERE---------";
 

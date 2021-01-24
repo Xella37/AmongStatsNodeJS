@@ -4,6 +4,7 @@ const https = require("https");
 const HOSTNAME = "amongstats.net";
 
 let authToken = "";
+let applicationCode;
 
 function userRequest({ request, method = "GET", body = "", authorization = authToken}) {
     if (typeof body === "object")
@@ -64,6 +65,7 @@ async function addStats(stats) {
         method: "POST",
         body: {
             stats: stats,
+            application_code: applicationCode,
         },
     });
     return addStatsResult;
@@ -74,6 +76,7 @@ function processStats(statsRaw) {
     for (let i = 0; i < 18; i++)
         stats[i] = statsRaw["stat" + (i+1)];
     return {
+        application: statsRaw.application,
         uploaded_on: statsRaw.uploaded_on,
         stats: stats,
     }
@@ -111,6 +114,10 @@ async function login(token) {
         throw "Cannot login. Invalid token given.";
 }
 
+async function setApplicationCode(code) {
+    applicationCode = code;
+}
+
 module.exports = {
     validToken: validToken,
     addStats: addStats,
@@ -118,4 +125,5 @@ module.exports = {
     getStatsHistory: getStatsHistory,
     getUser: getUser,
     login: login,
+    setApplicationCode: setApplicationCode,
 };
