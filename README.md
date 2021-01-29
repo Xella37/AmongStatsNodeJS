@@ -7,7 +7,7 @@ Installing:
 
 Require module using
 ```javascript
-const amongstats = require("./amongstats");
+const amongstats = require("amongstats");
 ```
 
 Module exports:
