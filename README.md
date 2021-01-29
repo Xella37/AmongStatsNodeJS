@@ -1,6 +1,6 @@
 # AmongStatsNodeJS
-A NodeJS wrapper for the [Among Stats](https://amongstats.net/) API
-The documentation of the API endpoints [API Documentation](https://amongstats.net/api-documentation/)
+A NodeJS wrapper for the [Among Stats](https://amongstats.net/) API.
+The documentation of the API endpoints: [API Documentation](https://amongstats.net/api-documentation/)
 
 Installing:
 ```npm install amongstats```
@@ -13,74 +13,62 @@ const amongstats = require("./amongstats");
 Module exports:
 
 ```javascript
-amongstats.validToken(token);
+let user = new amongstats.UserClient();
 ```
-Returns a promise of information on the validity of the given token.
+Returns a new user client that can be used to login and access user data.
 
 ```javascript
-amongstats.login(token);
+let guild = new amongstats.GuildClient();
+```
+Returns a new guild client that can be used to login and access guild data.
+
+```javascript
+user.login(userToken);
+```
+Will attempt to "login" by checking the validity of the given token, and if it is valid, it will remember the token for other requests.
+
+```javascript
+guild.login(userToken);
 ```
 Will attempt to "login" by checking the validity of the given token, and if it is valid, it will remember the token for other requests.
 
 ```javascript
 amongstats.setApplicationCode(applicationCode);
 ```
-Sets the application code for uploading statistics. This is optional. It will track which application uploaded the statistics, and statistics will be visible on the [Developer Tools](https://test.amongstats.net/developer/applications/).
+Sets the application code for uploading statistics. This is optiona, but it is recommended to set the application code at the start of your application. It will track which application uploaded the statistics, and statistics will be visible on the [Developer Tools](https://test.amongstats.net/developer/applications/).
 
+UserClient methods (each returns a promise):
 ```javascript
-amongstats.getUser();
+// Returns basic information on the Discord user like username, avatar code and when the AmongStats account was created
+user.getInfo()
+
+// Adds statistics to the users account. stats has to be an array of 18 integers
+user.addStats(stats)
+
+// Returns the most recent statistics of the user
+user.getStats()
+
+// Returns all of the users uploaded statistics
+user.getStatsHistory()
 ```
-Returns basic Discord information on the user.
 
+GuildClient methods (each returns a promise):
 ```javascript
-amongstats.getStats();
+// Returns basic information on the Discord guild like id, name, icon code, command_prefix, owner, joined_on, screenshot_channel
+let info = await guild.getInfo()
+
+// Returns a list of all the users in the guild with an account, along with their hidden status
+let users = await guild.getUsers()
+
+// Returns basic information on a single user
+let user = await guild.getUser(userId)
+
+// Returns the most recently uploaded statistics from the given user
+let userStats = await guild.getUserStats(userId)
+
+// Returns all uploaded statistics from the given user
+let userStatsHistory = await guild.getUserStatsHistory(userId)
+
+// Returns the most recently uploaded statistics from all users in the guild with an account
+let stats = await guild.getStats()
 ```
-Returns the latest set of statistics of the user.
-
-```javascript
-amongstats.getStatsHistory();
-```
-Returns all the statistics uploaded by the user.
-
-```javascript
-amongstats.addStats(stats);
-```
-Returns a promise of information on the success of adding statistics to the user account. ``stats`` is expected to be an array of 18 integers. Example:
-
-```javascript
-const amongstats = require("./amongstats");
-
-const applicationCode = "----------CODE-GOES-HERE---------";
-// Set the application code (optional)
-amongstats.setApplicationCode(applicationCode);
-
-const authToken = "---------TOKEN-GOES-HERE---------";
-
-async function start() {
-    // Allow to check the validity of a token
-    let valid = await amongstats.validToken(authToken);
-    console.log(valid);
-
-    // "Login" saves the auth token
-    await amongstats.login(authToken);
-
-    // Receive basic information on the user
-    let user = await amongstats.getUser();
-    console.log(user);
-
-    // Add stats to the user's account
-    let res = await amongstats.addStats([
-        153, 54, 1807, 94, 218, 161, 140, 75, 8, 96, 392, 488, 469, 10, 26, 4, 245, 39,
-    ]);
-    console.log(res);
-
-    // Get the latest set of statistics
-    let stats = await amongstats.getStats();
-    console.log(stats);
-
-    // Get all the statistics uploaded by the user
-    let allStats = await amongstats.getStatsHistory();
-    console.log(allStats);
-}
-
-start();
