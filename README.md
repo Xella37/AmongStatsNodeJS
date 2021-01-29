@@ -25,12 +25,12 @@ Returns a new guild client that can be used to login and access guild data.
 ```javascript
 user.login(userToken);
 ```
-Will attempt to "login" by checking the validity of the given token, and if it is valid, it will remember the token for other requests.
+Will attempt to "login" by checking the validity of the given token, and if it is valid, it will remember the token for other requests. Token generated using the [Discord bot](https://top.gg/bot/770639689136865331) command ``;generatetoken``;
 
 ```javascript
-guild.login(userToken);
+guild.login(guildToken);
 ```
-Will attempt to "login" by checking the validity of the given token, and if it is valid, it will remember the token for other requests.
+Will attempt to "login" by checking the validity of the given token, and if it is valid, it will remember the token for other requests. Token generated using the [Discord bot](https://top.gg/bot/770639689136865331) command ``;generateguildtoken``;
 
 ```javascript
 amongstats.setApplicationCode(applicationCode);
